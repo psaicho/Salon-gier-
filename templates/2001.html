@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+</style>
+<head>
+    <meta charset="UTF-8">
+    <title>Guess..</title>
+</head>
+<body>
+{% if method == "POST" %}
+    {% if stage == "end" %}
+        <p>{{result}}</p>
+        <form action="/" method="GET">
+            <input type="hidden" name="stage" value="game">
+            <input type="submit"  value="Try Again">
+            {% if history %}
+                {% for para in history %}
+                <p>{{para}}<br></p>
+                {% endfor %}
+            {% endif %}
+        </form>
+    {% else %}
+        <p>Your point: {{user_points}}</p>
+        <p>Computer point: {{comp_points}}</p>
+        <form action="/" method="POST">
+            <p>Dostępne kości: D3, D4, D6, D8, D10, D12, D20, D100</p>
+            <p>Wrowadz w pola swoje wybory kostki</p>
+            <p>Jeśli wprowadzony kod nie będzie odpowiadał powyższemy zostanie wybrana kostka D6</p>
+            <input type="text" name="choice_one" placeholder="Tu wpisz wybór 1 kości"/>
+            <input type="text" name="choice_two" placeholder="Tu wpisz wybór 2 kości"/>
+            <input type="hidden" name="user_points" value="{{user_points}}">
+            <input type="hidden" name="comp_points" value="{{comp_points}}">
+            <input type="hidden" name="counter" value="{{counter}}">
+            <input type="hidden" name="history" value="{{history}}">
+            <input type="hidden" name="stage" value="game">
+            <button type="submit">Roll The Dice!</button>
+            {% if history %}
+                {% for para in history %}
+                <p>{{para}}<br></p>
+                {% endfor %}
+            {% endif %}
+        </form>
+    {% endif %}
+{% else %}
+<form action="/" method="POST">
+    <p>Let's play ... 2001 is waiting for us</p>
+    <input type="hidden" name="user_points" value="0">
+    <input type="hidden" name="comp_points" value="0">
+    <input type="hidden" name="counter" value="0">
+    <input type="hidden" name="stage" value="start">
+    <button type="submit">Start</button>
+</form>
+{% endif %}
+
+
+</body>
